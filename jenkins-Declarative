@@ -14,6 +14,21 @@ pipeline{
                 sh "mvn clean package"
                 sh "mv target/*.war target/myweb.war"
             }
-         }   
+         }
+         stage("deploy-dev"){
+            steps{
+                sshagent(['tomcat-new']) {
+                sh """
+                    scp target/myweb.war  /opt/tomcat/webapps
+                    
+                    /opt/tomcat/bin/shutdown.sh
+                    
+                    /opt/tomcat/bin/startup.sh
+
+                """
+                }
+            
+            }
+        }
     }   
  }
