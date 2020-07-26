@@ -18,11 +18,11 @@ pipeline{
          stage("deploy-dev"){
             steps{
                 sh """
-                    scp target/myweb.war  /opt/tomcat/webapps
+                    sudo scp target/myweb.war  /opt/tomcat/webapps
                     
-                    /opt/tomcat/bin/shutdown.sh
+                    sudo /opt/tomcat/bin/shutdown.sh
                     
-                    /opt/tomcat/bin/startup.sh
+                    sudo /opt/tomcat/bin/startup.sh
 
                 """
             }
